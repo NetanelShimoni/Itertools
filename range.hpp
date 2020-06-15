@@ -15,13 +15,13 @@
             int start_index, end_index ;
         public:
             range(int s, int e): start_index(s),end_index(e){}
-            class Iterator{
+            class iterator{
             private:
                 int curr;
 
             public:
 
-                Iterator(int c)
+                iterator(int c)
                         : curr(c) {
                 }
                 int operator*() const {
@@ -29,32 +29,32 @@
                 }
 
                 // ++i;
-                Iterator& operator++() {
+                iterator& operator++() {
                     ++this->curr;
                     return *this;
                   
                 }
-                const Iterator operator++(int) {
-                    Iterator tmp= *this;
+                const iterator operator++(int) {
+                    iterator tmp= *this;
                     ++curr;
                     return tmp;
                 }
 
-                bool operator==(const Iterator& r) const {
+                bool operator==(const iterator& r) const {
                     return curr == r.curr;
                 }
 
-                bool operator!=(const Iterator& r) const {
+                bool operator!=(const iterator& r) const {
                     return curr != r.curr;
                 }
-            };  // END OF CLASS ITERATOR
+            };  // END OF CLASS iterator
 
-            Iterator begin() {
-                return Iterator{start_index};
+            iterator begin() {
+                return iterator{start_index};
             }
 
-            Iterator end() {
-                return Iterator{end_index};
+            iterator end() {
+                return iterator{end_index};
             }
         };
     }
