@@ -17,37 +17,32 @@
             range(int s, int e): start_index(s),end_index(e){}
             class iterator{
             private:
-                int curr;
+                int now_index;
 
             public:
 
                 iterator(int c)
-                        : curr(c) {
+                        : now_index(c) {
                 }
                 int operator*() const {
-                    return curr;
+                    return now_index;
                 }
-
-                // ++i;
                 iterator& operator++() {
-                    ++this->curr;
+                    ++this->now_index;
                     return *this;
-                  
                 }
                 const iterator operator++(int) {
                     iterator tmp= *this;
-                    ++curr;
+                    ++now_index;
                     return tmp;
                 }
-
                 bool operator==(const iterator& r) const {
-                    return curr == r.curr;
+                    return now_index == r.now_index;
                 }
-
                 bool operator!=(const iterator& r) const {
-                    return curr != r.curr;
+                    return now_index != r.now_index;
                 }
-            };  // END OF CLASS iterator
+            };  
 
             iterator begin() {
                 return iterator{start_index};
