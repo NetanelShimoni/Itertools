@@ -21,7 +21,7 @@
 
             public:
 
-                iterator(int c)
+                iterator(range rang,int c)
                         : now_index(c) {
                 }
                 int operator*() const {
@@ -44,13 +44,25 @@
                 }
             };  
 
-            iterator begin() {
+          /*  iterator begin() {
                 return iterator{start_index};
             }
 
             iterator end() {
                 return iterator{end_index};
+            }*/
+
+          typename range::iterator range::begin()
+          {
+              return iterator{ *this, start_index };
+          }
+
+
+            typename range::iterator range::end()
+            {
+                return iterator{ *this, end_index };
             }
+
         };
     }
 

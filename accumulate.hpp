@@ -12,64 +12,73 @@
 using namespace std;
 
 namespace itertools{
-    class plus
+    class ADD
     {
     public:
         template <typename T>
         T operator()(T a, T b) { return a + b; }
     };
-    template <typename T, typename func = plus>
+    template <typename T, typename func = ADD>
     class accumulate
     {
     private:
         T bin;
         func function;
     public:
-        accumulate(T c , func f=plus()):bin(c),function(f){}
+        accumulate(T c , func f=ADD()):
+        bin(c),
+        function(f){}
 
         class iterator {
-            typename T::iterator start_it;
-            typename T::iterator end_it;
+        public:
+//            typename T::iterator start_index;
+//            typename T::iterator end_index;
+            int start_index;
+            int end_index;
             decltype(*(bin.begin())) sum;
             func function;
         public:
             iterator(typename T::iterator s_it,typename T::iterator e_it,func f):
-                    start_it(s_it),end_it(e_it), sum(*s_it), function(f){}
+                    start_index(s_it),end_index(e_it), sum(*s_it), function(f){}
 
             decltype(*(bin.begin())) operator*() const {
                 return sum;
             }
 
             iterator& operator++() {
-                ++start_it;
-                if(start_it!=end_it)
-                    sum= function(sum,*start_it);
+                ++start_index;
+                if(start_index!=end_index)
+                    sum= function(sum,*start_index);
                 return *this;
             }
 
             const iterator operator++(int) {
                 iterator tmp= *this;
-                ++start_it;
-                if(start_it!=end_it)
-                    sum= function(sum,*start_it);
+                ++start_index;
+                if(start_index!=end_index)
+                    sum= function(sum,*start_index);
                 return tmp;
             }
 
             bool operator==(const iterator& other) const {
-                return start_it == other.start_it;
+                return start_index == other.start_index;
             }
 
             bool operator!=(const iterator& other) const {
-                return start_it != other.start_it;
+                return start_index != other.start_index;
             }
-        }; // END OF CLASS ITERATOR
+        };
 
-        iterator begin() {
-            return iterator{bin.begin(),bin.end(),function};
+        template <typename U>
+        typename accumulate::iterator accumulate::begin()
+        {
+            return iterator{iterator::start_index, iterator::end_index,this->function };
         }
 
-        iterator end() {
-            return iterator{bin.end(),bin.end(),function};
+        template <typename U>
+        typename accumulate::iterator accumulate::end()
+        {
+            return iterator{iterator::start_index, iterator::end_index,this->function };
         }
     };
 }
