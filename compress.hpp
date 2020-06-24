@@ -6,6 +6,7 @@
 
 #include <iostream>
 #include <string>
+
 using namespace std;
 
 namespace itertools {
@@ -27,25 +28,43 @@ namespace itertools {
                      typename cont2::iterator eF_it) :
                     start_it(s_it), end_it(e_it), startF_it(sF_it), endF_it(eF_it) {}
 
-            decltype(*(container.begin())) operator*() {
-                if (!(*startF_it))
-                    ++(*this);
+            auto operator*() {
+                if ((*startF_it)) {
+                    //++(*this);
+                    return *start_it;
+                }
                 return *start_it;
             }
 
-            iterator &operator++() {
-                do {
+//            iterator &operator++() {
+//                do {
+//                    ++start_it;
+//                    ++startF_it;
+//                } while (start_it != end_it && !(*startF_it));
+//                return *this;
+//            }
+//
+//            const iterator operator++(int) {
+//                iterator tmp = *this;
+//                ++(*this);
+//                return tmp;
+//            }
+
+            iterator& operator++(){
+                ++start_it;
+                ++startF_it;
+                while((start_it != end_it &&!(*startF_it))) {
                     ++start_it;
                     ++startF_it;
                 }
-                while (start_it != end_it && !(*startF_it));
                 return *this;
             }
 
-            const iterator operator++(int) {
-                iterator tmp = *this;
-                ++(*this);
-                return tmp;
+            const iterator operator++(int){
+                iterator temp = *this;
+                ++start_it;
+                ++startF_it;
+                return temp;
             }
 
             bool operator==(const iterator &other) const {

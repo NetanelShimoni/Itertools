@@ -24,14 +24,24 @@ namespace itertools{
             typename cont::iterator start_it;
             typename cont::iterator end_it;
             condi condition;
+            int size=0;
         public:
             iterator(typename cont::iterator s_it,typename cont::iterator e_it,condi co):
                     start_it(s_it),end_it(e_it), condition(co){}
 
-            decltype(*(container.begin())) operator*()  {
-                if(condition(*start_it))
-                    ++(*this);
-                return *start_it;
+            auto operator*()  {
+                size++;
+                cout<<"size is: "<<size<<endl;
+                if(size==21){
+                    cout<<"i am in end"<< *start_it<<endl;
+                }
+                cout<<*(start_it)<<" <--this "<<endl;
+                if(condition(*start_it)) {
+                   // ++(*this);
+                    start_it++;
+                    return *start_it;
+                }else{
+                }
             }
 
             iterator& operator++() {

@@ -14,6 +14,7 @@
         class range{
             int start_index, end_index ;
         public:
+            typedef int	value_type;
             range(int s, int e): start_index(s),end_index(e){}
             class iterator{
             private:
@@ -21,7 +22,7 @@
 
             public:
 
-                iterator(range rang,int c)
+                iterator(int c)
                         : now_index(c) {
                 }
                 int operator*() const {
@@ -44,24 +45,24 @@
                 }
             };  
 
-          /*  iterator begin() {
+            iterator begin() {
                 return iterator{start_index};
             }
 
             iterator end() {
                 return iterator{end_index};
-            }*/
-
-          typename range::iterator range::begin()
-          {
-              return iterator{ *this, start_index };
-          }
-
-
-            typename range::iterator range::end()
-            {
-                return iterator{ *this, end_index };
             }
+//
+//          typename range::iterator range::begin()
+//          {
+//              return iterator{ *this, start_index };
+//          }
+//
+//
+//            typename range::iterator range::end()
+//            {
+//                return iterator{ *this, end_index };
+//            }
 
         };
     }
